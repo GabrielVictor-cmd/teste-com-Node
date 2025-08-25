@@ -52,6 +52,7 @@ app.post("/users", (request, response ) => {
     users.push(user)
 
     return response.status(201).json(user)
+    
 })        
 
 app.put("/users/:id", verificar_ID_usuario, (request, response ) => {
