@@ -46,13 +46,22 @@ app.get("/users", (request, response ) => {
 })        
 
 app.post("/users", (request, response ) => {
+try {
     const { nome, idade } = request.body
+    
+    if(idade < 18) throw new Error("Desculpe, apenas usuários com mais de 18 anos")
 
     const user = { id:uuid.v4(), nome, idade }
     users.push(user)
-
+    
     return response.status(201).json(user)
     
+} catch (err) {
+    return response.status(401).json({error: err.message})
+
+} finally {
+    console.log("Tudo certo ✔")
+}
 })        
 
 app.put("/users/:id", verificar_ID_usuario, (request, response ) => {
